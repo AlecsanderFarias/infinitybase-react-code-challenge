@@ -1,38 +1,18 @@
-export function signInRequest(email, password) {
+export function getQuestionsResquest() {
   return {
-    type: '@auth/SIGN_IN_REQUEST',
-    payload: { email, password },
+    type: "@questions/GET_QUESTIONS_REQUEST",
   };
 }
 
-export function signInSucess(token, me) {
+export function getQuestionsSuccess(questions) {
   return {
-    type: '@auth/SIGN_IN_SUCCESS',
-    payload: { token, me },
+    type: "@questions/GET_QUESTIONS_SUCCESS",
+    payload: { questions },
   };
 }
 
-export function signUpRequest(info) {
+export function getQuestionFailure() {
   return {
-    type: '@auth/SIGN_UP_REQUEST',
-    payload: info,
-  };
-}
-
-export function signUpSuccess() {
-  return {
-    type: '@auth/SIGN_UP_SUCCESS',
-  };
-}
-
-export function signFailure() {
-  return {
-    type: '@auth/SIGN_FAILURE',
-  };
-}
-
-export function signOut() {
-  return {
-    type: '@auth/SIGN_OUT',
+    type: "@questions/GET_QUESTIONS_FAILURE",
   };
 }

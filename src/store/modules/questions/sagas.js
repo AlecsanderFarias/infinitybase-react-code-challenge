@@ -1,84 +1,29 @@
 /* eslint-disable no-unused-vars */
-import { all, takeLatest, call, put } from 'redux-saga/effects';
-import { toast } from 'react-toastify';
-import api from '../../../services/api';
-import history from '../../../services/history';
+import { toast } from "react-toastify";
+import { all, takeLatest, call, put } from "redux-saga/effects";
 
-import { signInSucess, signFailure, signOut, signUpSuccess } from './actions';
+import api from "../../../services/api";
+import { getQuestionsSuccess, getQuestionFailure } from "./actions";
 
-export function* signIn({ payload }) {
+export function* getQuestions() {
   try {
-    const { email, password } = payload;
+    const response = yield call(
+      api.post,
+      "?amount=10&difficulty=hard&type=boolean"
+    );
 
-    const response = yield call(api.post, '/user/login', {
-      email,
-      password,
-    });
+    const { results } = response.data;
 
-    const { token, user } = response.data;
-
-    api.defaults.headers.Authorization = `Bearer ${token}`;
-
-    toast.success('Iniciar sesión correctamente');
-
-    yield put(signInSucess(token, user));
+    yield put(getQuestionsSuccess(results));
   } catch (error) {
-    if (error.response && error.response.data && error.response.data.error) {
-      toast.error(error.response.data.error);
-    } else {
-      toast.error('Se produjo un error, inténtelo de nuevo más tarde.');
-    }
+    toast.error(
+      error.response.data.error || " An error occurred, please try again later."
+    );
 
-    yield put(signFailure());
+    yield put(getQuestionFailure());
   }
-}
-
-export function* signUp({ payload }) {
-  try {
-    const response = yield call(api.post, '/user', payload);
-
-    const { token, user } = response.data;
-
-    api.defaults.headers.Authorization = `Bearer ${token}`;
-
-    toast.success('Cuenta creada con éxito');
-
-    yield put(signInSucess(token, user));
-  } catch (error) {
-    if (error.response && error.response.data && error.response.data.error) {
-      toast.error(error.response.data.error);
-    } else {
-      toast.error('Se produjo un error, inténtelo de nuevo más tarde.');
-    }
-
-    yield put(signFailure());
-  }
-}
-
-export function* setTokenRefresh({ payload }) {
-  if (!payload) return;
-
-  const { token, signed } = payload.auth;
-
-  if (token) {
-    api.defaults.headers.Authorization = `Bearer ${token}`;
-  } else {
-    if (signed) {
-      yield put(signOut());
-    }
-  }
-}
-
-export function signOUt() {}
-
-export function loginSuccess() {
-  history.push('/company');
 }
 
 export default all([
-  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
-  takeLatest('persist/REHYDRATE', setTokenRefresh),
-  takeLatest('@auth/SIGN_UP_REQUEST', signUp),
-  takeLatest('@auth/SIGN_OUT', signOUt),
-  takeLatest('@auth/SIGN_IN_SUCCESS', loginSuccess),
+  takeLatest("@questions/GET_QUESTIONS_REQUEST", getQuestions),
 ]);

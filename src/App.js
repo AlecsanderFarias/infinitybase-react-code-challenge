@@ -1,13 +1,15 @@
-import React from 'react';
-import { ToastContainer } from 'react-toastify';
-import { PersistGate } from 'redux-persist/integration/react';
-import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
-import history from './services/history';
-import Routes from './routes';
+import React from "react";
 
-import GlobalStyle from './styles/global';
-import bucket from './store/index';
+import { Provider } from "react-redux";
+import { Router } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { PersistGate } from "redux-persist/integration/react";
+
+import Routes from "./routes";
+import history from "./services/history";
+import bucket from "./store/index";
+import GlobalStyle from "./styles/global";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 function App() {
   return (

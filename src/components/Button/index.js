@@ -1,11 +1,26 @@
-import React from 'react';
+import React from "react";
 
-// import { Container } from './styles';
+import Loader from "react-loader-spinner";
 
-function Button() {
-  return <div >
-    teste
-  </div>
+import colors from "~/styles/colors";
+
+import { Container } from "./styles";
+
+function Button({ children, loading = false, ...rest }) {
+  return (
+    <Container {...rest}>
+      {loading ? (
+        <Loader
+          type="ThreeDots"
+          color={colors.tertiary}
+          height={10}
+          width={100}
+        />
+      ) : (
+        children
+      )}
+    </Container>
+  );
 }
 
 export default Button;

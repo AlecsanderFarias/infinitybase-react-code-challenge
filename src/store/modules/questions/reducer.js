@@ -1,23 +1,26 @@
-import produce from 'immer';
+import produce from "immer";
 
 const INITIAL_STATE = {
-  loading : false,
+  loading: false,
 };
 
 export default function questions(state = INITIAL_STATE, action) {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (action.type) {
-      case '@auth/GET_QUESTIONS_REQUEST': {
+      case "@questions/GET_QUESTIONS_REQUEST": {
         draft.loading = true;
         break;
       }
 
-      case '@auth/GET_QUESTIONS_SUCCESS': {
+      case "@questions/GET_QUESTIONS_SUCCESS": {
         draft.loading = false;
         break;
       }
 
-     
+      case "@questions/GET_QUESTIONS_FAILURE": {
+        draft.loading = false;
+        break;
+      }
 
       default:
     }

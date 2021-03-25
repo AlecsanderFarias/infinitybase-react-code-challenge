@@ -1,3 +1,5 @@
-import Button from './Button';
+import Button from "./Button";
+import Loading from "./Loading";
+import Question from "./Question";
 
-export {Button};
+export { Button, Loading, Question };
