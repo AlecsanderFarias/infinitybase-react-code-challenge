@@ -1,9 +1,35 @@
 import React from "react";
 
-import { Container } from "./styles";
+import { useDispatch } from "react-redux";
 
-function Question(/* { data } */) {
-  return <Container>question</Container>;
+import { answerQuestion } from "~/store/modules/questions/actions";
+
+import Button from "../Button";
+import { Container, Type, Description, ActionsTab } from "./styles";
+
+function Question({ data }) {
+  const dispatch = useDispatch();
+
+  async function answer(response) {
+    dispatch(answerQuestion(data.index, response));
+  }
+
+  return (
+    <Container>
+      <Type>{data.category}</Type>
+
+      <Description>{data.question}</Description>
+
+      <ActionsTab>
+        <div>
+          <Button onClick={() => answer("True")}>True</Button>
+        </div>
+        <div>
+          <Button onClick={() => answer("False")}>False</Button>
+        </div>
+      </ActionsTab>
+    </Container>
+  );
 }
 
 export default Question;

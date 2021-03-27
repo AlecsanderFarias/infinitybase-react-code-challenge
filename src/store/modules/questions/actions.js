@@ -16,3 +16,10 @@ export function getQuestionFailure() {
     type: "@questions/GET_QUESTIONS_FAILURE",
   };
 }
+
+export function answerQuestion(index, response) {
+  return {
+    type: "@questions/ANSWER_QUESTION",
+    payload: { index, response },
+  };
+}

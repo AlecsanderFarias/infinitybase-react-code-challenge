@@ -2,6 +2,7 @@ import produce from "immer";
 
 const INITIAL_STATE = {
   loading: false,
+  data: [],
 };
 
 export default function questions(state = INITIAL_STATE, action) {
@@ -13,6 +14,7 @@ export default function questions(state = INITIAL_STATE, action) {
       }
 
       case "@questions/GET_QUESTIONS_SUCCESS": {
+        draft.data = action.payload.questions;
         draft.loading = false;
         break;
       }

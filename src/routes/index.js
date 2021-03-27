@@ -9,6 +9,7 @@ import DefaultRoute from "./DefaultRoute";
 // Default Routes
 import Home from "../pages/Default/Home";
 import Game from "../pages/Default/Game";
+import Finish from "../pages/Default/Finish";
 
 const Routes = () => {
   return (
@@ -16,6 +17,7 @@ const Routes = () => {
       <Switch>
         <DefaultRoute path="/" component={Home} exact />
         <DefaultRoute path="/game" component={Game} exact />
+        <DefaultRoute path="/finish" component={Finish} exact />
 
         <DefaultRoute path="*" isPrivate component={Home} />
       </Switch>

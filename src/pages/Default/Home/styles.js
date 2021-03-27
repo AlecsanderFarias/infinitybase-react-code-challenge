@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const WelcomeText = styled.h1`
-  padding: 2.8rem;
+  padding: 1.8rem;
   font-size: 2.8rem;
   color: ${colors.primary};
   text-align: center;
